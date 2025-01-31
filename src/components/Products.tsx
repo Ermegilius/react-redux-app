@@ -4,10 +4,11 @@ import { useEffect } from "react";
 import { RootState } from "../store/store";
 import { useAppDispatch } from "../hooks/hooks";
 import { addToCart } from "../store/cartSlice";
+import { Button } from "@mui/material";
+import Cart from "./Cart";
 
 const Products = () => {
-	const products = useSelector((state: RootState) => state.products);
-	const cart = useSelector((state: RootState) => state.cart.items);
+	const products = useSelector((state: RootState) => state.products.products);
 	const dispatch = useAppDispatch();
 	console.log("Products: ", products);
 
@@ -17,10 +18,11 @@ const Products = () => {
 
 	return (
 		<div>
+			<Cart />
 			{products.map((product) => (
 				<div key={product.id}>
-					<h2>{product.title}</h2>
-					<button
+					<h3>{product.title}</h3>
+					<Button
 						onClick={() => {
 							dispatch(
 								addToCart({
@@ -33,7 +35,7 @@ const Products = () => {
 						}}
 					>
 						Add to Cart
-					</button>
+					</Button>
 				</div>
 			))}
 		</div>
