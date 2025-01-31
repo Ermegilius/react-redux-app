@@ -4,7 +4,7 @@ export interface Recipe {
 	ingredients: string[];
 }
 
-export interface RecipesState {
+export interface Recipes {
 	recipes: Recipe[];
 	isLoading: boolean;
 }
