@@ -1,18 +1,38 @@
 import { useSelector } from "react-redux";
-import { fetchProducts } from "../store/productsSlice";
+import { fetchRecipes } from "../store/recipesSlice";
 import { useEffect } from "react";
 import { RootState } from "../store/store";
 import { useAppDispatch } from "../hooks/hooks";
 
 const Recipes = () => {
-	const recipes = useSelector((state: RootState) => state.recipes);
+	const { recipes, isLoading } = useSelector((state: RootState) => state.recipes);
 	const dispatch = useAppDispatch();
 	console.log("Recipes: ", recipes);
 
 	useEffect(() => {
-		dispatch(fetchProducts());
+		dispatch(fetchRecipes());
 	}, [dispatch]);
-	return <div>Recipes</div>;
+
+	console.log("isLoading: ", isLoading);
+	console.log("Recipes: ", recipes);
+
+	if (isLoading) {
+		return <div>Loading...</div>;
+	}
+
+	if (recipes.length === 0) {
+		return <div>No recipes found.</div>;
+	}
+
+	return (
+		<div>
+			{recipes.map((recipe) => (
+				<div key={recipe.id}>
+					<h2>{recipe.name}</h2>
+				</div>
+			))}
+		</div>
+	);
 };
 
 export default Recipes;
